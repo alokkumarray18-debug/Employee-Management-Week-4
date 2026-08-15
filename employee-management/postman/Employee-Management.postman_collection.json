@@ -1,0 +1,119 @@
+{
+  "info": {
+    "name": "Employee Management API v1",
+    "description": "Week 4 Trainee Assignment - Employee & Department Management REST API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" }
+  ],
+  "item": [
+    {
+      "name": "Departments",
+      "item": [
+        {
+          "name": "Create Department",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"departmentName\": \"Engineering\",\n  \"location\": \"Bengaluru\"\n}" },
+            "url": { "raw": "{{baseUrl}}/api/v1/departments", "host": ["{{baseUrl}}"], "path": ["api", "v1", "departments"] }
+          }
+        },
+        {
+          "name": "Get All Departments",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/v1/departments", "host": ["{{baseUrl}}"], "path": ["api", "v1", "departments"] } }
+        },
+        {
+          "name": "Get Department By Id",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/v1/departments/1", "host": ["{{baseUrl}}"], "path": ["api", "v1", "departments", "1"] } }
+        },
+        {
+          "name": "Update Department",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"departmentName\": \"Engineering\",\n  \"location\": \"Hyderabad\"\n}" },
+            "url": { "raw": "{{baseUrl}}/api/v1/departments/1", "host": ["{{baseUrl}}"], "path": ["api", "v1", "departments", "1"] }
+          }
+        },
+        {
+          "name": "Delete Department",
+          "request": { "method": "DELETE", "url": { "raw": "{{baseUrl}}/api/v1/departments/1", "host": ["{{baseUrl}}"], "path": ["api", "v1", "departments", "1"] } }
+        }
+      ]
+    },
+    {
+      "name": "Employees",
+      "item": [
+        {
+          "name": "Create Employee",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"salary\": 75000,\n  \"joiningDate\": \"2024-01-15\",\n  \"departmentId\": 1\n}" },
+            "url": { "raw": "{{baseUrl}}/api/v1/employees", "host": ["{{baseUrl}}"], "path": ["api", "v1", "employees"] }
+          }
+        },
+        {
+          "name": "Create Employee With Audit",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Jane Roe\",\n  \"email\": \"jane.roe@example.com\",\n  \"salary\": 82000,\n  \"joiningDate\": \"2024-02-01\",\n  \"departmentId\": 1\n}" },
+            "url": { "raw": "{{baseUrl}}/api/v1/employees/with-audit?performedBy=admin", "host": ["{{baseUrl}}"], "path": ["api", "v1", "employees", "with-audit"], "query": [{ "key": "performedBy", "value": "admin" }] }
+          }
+        },
+        {
+          "name": "Get All Employees (paginated + sorted)",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/v1/employees?page=0&size=10&sortBy=salary&direction=desc", "host": ["{{baseUrl}}"], "path": ["api", "v1", "employees"], "query": [{ "key": "page", "value": "0" }, { "key": "size", "value": "10" }, { "key": "sortBy", "value": "salary" }, { "key": "direction", "value": "desc" }] } }
+        },
+        {
+          "name": "Get Employee By Id",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/v1/employees/1", "host": ["{{baseUrl}}"], "path": ["api", "v1", "employees", "1"] } }
+        },
+        {
+          "name": "Update Employee",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"salary\": 80000,\n  \"joiningDate\": \"2024-01-15\",\n  \"departmentId\": 1\n}" },
+            "url": { "raw": "{{baseUrl}}/api/v1/employees/1", "host": ["{{baseUrl}}"], "path": ["api", "v1", "employees", "1"] }
+          }
+        },
+        {
+          "name": "Delete Employee",
+          "request": { "method": "DELETE", "url": { "raw": "{{baseUrl}}/api/v1/employees/1", "host": ["{{baseUrl}}"], "path": ["api", "v1", "employees", "1"] } }
+        },
+        {
+          "name": "Search Employees By Name",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/v1/employees/search?name=John&page=0&size=10", "host": ["{{baseUrl}}"], "path": ["api", "v1", "employees", "search"], "query": [{ "key": "name", "value": "John" }, { "key": "page", "value": "0" }, { "key": "size", "value": "10" }] } }
+        },
+        {
+          "name": "Employees By Department (paginated)",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/v1/employees/department/1?page=0&size=10", "host": ["{{baseUrl}}"], "path": ["api", "v1", "employees", "department", "1"], "query": [{ "key": "page", "value": "0" }, { "key": "size", "value": "10" }] } }
+        },
+        {
+          "name": "Employees Above Salary",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/v1/employees/salary-above/50000", "host": ["{{baseUrl}}"], "path": ["api", "v1", "employees", "salary-above", "50000"] } }
+        },
+        {
+          "name": "Highest Paid Employee",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/v1/employees/highest-paid", "host": ["{{baseUrl}}"], "path": ["api", "v1", "employees", "highest-paid"] } }
+        },
+        {
+          "name": "Employees Joined After Date",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/v1/employees/joined-after/2024-01-01", "host": ["{{baseUrl}}"], "path": ["api", "v1", "employees", "joined-after", "2024-01-01"] } }
+        },
+        {
+          "name": "Average Salary By Department",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/v1/employees/average-salary-by-department", "host": ["{{baseUrl}}"], "path": ["api", "v1", "employees", "average-salary-by-department"] } }
+        },
+        {
+          "name": "External Profile (RestClient integration demo)",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/v1/employees/external-profile/1", "host": ["{{baseUrl}}"], "path": ["api", "v1", "employees", "external-profile", "1"] } }
+        }
+      ]
+    }
+  ]
+}
